@@ -11,7 +11,9 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "react": "^19.3.1",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.3.1",
     "react-router": "^7.18.4"
   },
@@ -23,6 +25,7 @@
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.13.0",
     "prettier": "^3.9.10",
+    "sass": "^1.105.2",
     "vite": "^8.3.4"
   }
 }
