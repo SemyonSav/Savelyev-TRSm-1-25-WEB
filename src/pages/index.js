@@ -4,3 +4,4 @@ import { lazy } from 'react';
 export const RecipesPage = lazy(() => import('./RecipesPage.jsx'));
 export const RecipeDetailsPage = lazy(() => import('./RecipeDetailsPage.jsx'));
 export const AddRecipePage = lazy(() => import('./AddRecipePage.jsx'));
+export const NotFoundPage = lazy(() => import('./NotFoundPage.jsx'));

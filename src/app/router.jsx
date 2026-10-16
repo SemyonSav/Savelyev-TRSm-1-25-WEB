@@ -1,12 +1,14 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '@/components/layout/Layout.jsx';
 import PageSuspense from '@/components/layout/PageSuspense.jsx';
-import { AddRecipePage, RecipeDetailsPage, RecipesPage } from '@/pages/index.js';
+import RouteErrorPage from '@/pages/RouteErrorPage.jsx';
+import { AddRecipePage, NotFoundPage, RecipeDetailsPage, RecipesPage } from '@/pages/index.js';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         index: true,
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
         element: (
           <PageSuspense>
             <RecipeDetailsPage />
+          </PageSuspense>
+        ),
+      },
+      {
+        path: '*',
+        element: (
+          <PageSuspense>
+            <NotFoundPage />
           </PageSuspense>
         ),
       },
