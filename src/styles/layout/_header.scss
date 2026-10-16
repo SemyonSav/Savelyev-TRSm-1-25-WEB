@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+
+  .navbar {
+    min-height: $header-height;
+  }
+
+  .nav-link.active {
+    color: var(--bs-primary);
+  }
+}
