@@ -12,6 +12,16 @@
     align-items: center;
   }
 
+  &__search {
+    @include respond-up($bp-md) {
+      flex: 1 1 100%;
+    }
+
+    @include respond-up($bp-lg) {
+      flex: 1 1 18rem;
+    }
+  }
+
   &__size {
     @include respond-up($bp-md) {
       width: 11rem;

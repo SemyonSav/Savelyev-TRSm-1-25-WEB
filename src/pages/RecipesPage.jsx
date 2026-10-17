@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import EmptyState from '@/components/common/EmptyState.jsx';
 import ErrorAlert from '@/components/common/ErrorAlert.jsx';
 import Loader from '@/components/common/Loader.jsx';
@@ -21,7 +22,18 @@ export default function RecipesPage() {
     }
 
     if (data.items.length === 0) {
-      return <EmptyState title="Рецепты не найдены" />;
+      return (
+        <EmptyState
+          title="Ничего не найдено"
+          text={params.q ? `По запросу «${params.q}» рецептов нет` : undefined}
+        >
+          {params.q && (
+            <Button variant="outline-primary" size="sm" onClick={() => updateParams({ q: '' })}>
+              Сбросить поиск
+            </Button>
+          )}
+        </EmptyState>
+      );
     }
 
     return (
