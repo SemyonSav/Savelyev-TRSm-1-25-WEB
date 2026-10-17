@@ -1,0 +1,14 @@
+.recipes-results {
+  position: relative;
+
+  &.is-loading .row {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__loader {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+  }
+}
