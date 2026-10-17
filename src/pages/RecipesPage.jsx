@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import EmptyState from '@/components/common/EmptyState.jsx';
 import ErrorAlert from '@/components/common/ErrorAlert.jsx';
@@ -8,17 +9,30 @@ import RecipesToolbar from '@/components/recipes/RecipesToolbar.jsx';
 import { APP_NAME } from '@/config/constants.js';
 import { useListParams } from '@/hooks/useListParams.js';
 import { useRecipes } from '@/hooks/useRecipes.js';
+import { plural } from '@/utils/format.js';
 
 export default function RecipesPage() {
   const [params, updateParams] = useListParams();
   const { data, error, isLoading, reload } = useRecipes(params);
+
+  // Номер страницы из URL больше, чем страниц в выдаче (например, ?page=99)
+  const isPageOutOfRange = Boolean(
+    data && !isLoading && data.total > 0 && params.page > data.totalPages,
+  );
+  const lastPage = data?.totalPages;
+
+  useEffect(() => {
+    if (isPageOutOfRange) {
+      updateParams({ page: lastPage }, { replace: true });
+    }
+  }, [isPageOutOfRange, lastPage, updateParams]);
 
   const renderResults = () => {
     if (error) {
       return <ErrorAlert error={error} onRetry={reload} />;
     }
 
-    if (!data) {
+    if (!data || isPageOutOfRange || (isLoading && data.items.length === 0)) {
       return <Loader label="Загружаем рецепты…" />;
     }
 
@@ -46,6 +60,7 @@ export default function RecipesPage() {
             page={params.page}
             totalPages={data.totalPages}
             onChange={(page) => updateParams({ page })}
+            disabled={isLoading}
           />
         </div>
       </div>
@@ -55,7 +70,16 @@ export default function RecipesPage() {
   return (
     <>
       <title>{APP_NAME}</title>
-      <h1 className="h3 mb-4">Все рецепты</h1>
+      <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+        <h1 className="h3 mb-0">Все рецепты</h1>
+        {data && !error && (
+          <p className="text-body-secondary small mb-0" aria-live="polite">
+            {params.q ? 'Найдено' : 'Всего'} {data.total}{' '}
+            {plural(data.total, ['рецепт', 'рецепта', 'рецептов'])}
+            {data.totalPages > 1 && ` · страница ${params.page} из ${data.totalPages}`}
+          </p>
+        )}
+      </div>
       <RecipesToolbar params={params} onChange={updateParams} />
       {renderResults()}
     </>
