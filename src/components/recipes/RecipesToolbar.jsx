@@ -1,3 +1,4 @@
+import PageSizeSelect from './PageSizeSelect.jsx';
 import SortSelect from './SortSelect.jsx';
 
 /**
@@ -12,6 +13,9 @@ export default function RecipesToolbar({ params, onChange }) {
     <div className="recipes-toolbar">
       <div className="recipes-toolbar__sort">
         <SortSelect sort={params.sort} order={params.order} onChange={onChange} />
+      </div>
+      <div className="recipes-toolbar__size">
+        <PageSizeSelect value={params.limit} onChange={(limit) => onChange({ limit })} />
       </div>
     </div>
   );

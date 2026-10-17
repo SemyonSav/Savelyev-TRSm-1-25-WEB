@@ -11,4 +11,11 @@
     flex-wrap: wrap;
     align-items: center;
   }
+
+  &__size {
+    @include respond-up($bp-md) {
+      width: 11rem;
+      margin-left: auto;
+    }
+  }
 }
