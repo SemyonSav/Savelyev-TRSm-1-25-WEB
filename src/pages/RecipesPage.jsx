@@ -2,12 +2,13 @@ import EmptyState from '@/components/common/EmptyState.jsx';
 import ErrorAlert from '@/components/common/ErrorAlert.jsx';
 import Loader from '@/components/common/Loader.jsx';
 import RecipeGrid from '@/components/recipes/RecipeGrid.jsx';
+import RecipesToolbar from '@/components/recipes/RecipesToolbar.jsx';
 import { APP_NAME } from '@/config/constants.js';
 import { useListParams } from '@/hooks/useListParams.js';
 import { useRecipes } from '@/hooks/useRecipes.js';
 
 export default function RecipesPage() {
-  const [params] = useListParams();
+  const [params, updateParams] = useListParams();
   const { data, error, isLoading, reload } = useRecipes(params);
 
   const renderResults = () => {
@@ -35,6 +36,7 @@ export default function RecipesPage() {
     <>
       <title>{APP_NAME}</title>
       <h1 className="h3 mb-4">Все рецепты</h1>
+      <RecipesToolbar params={params} onChange={updateParams} />
       {renderResults()}
     </>
   );

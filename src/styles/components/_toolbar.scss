@@ -1,0 +1,14 @@
+@use '../abstracts' as *;
+
+.recipes-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  @include respond-up($bp-md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
