@@ -29,3 +29,21 @@ export const DEFAULT_LIST_PARAMS = Object.freeze({
 });
 
 export const SEARCH_DEBOUNCE_MS = 400;
+
+export const DIFFICULTIES = Object.freeze([
+  { value: 'Easy', label: 'Легко' },
+  { value: 'Medium', label: 'Средне' },
+  { value: 'Hard', label: 'Сложно' },
+]);
+
+/** Значения mealType, которые используются в API. */
+export const MEAL_TYPES = Object.freeze([
+  { value: 'Breakfast', label: 'Завтрак' },
+  { value: 'Lunch', label: 'Обед' },
+  { value: 'Dinner', label: 'Ужин' },
+  { value: 'Snack', label: 'Перекус' },
+  { value: 'Dessert', label: 'Десерт' },
+  { value: 'Appetizer', label: 'Закуска' },
+  { value: 'Side Dish', label: 'Гарнир' },
+  { value: 'Beverage', label: 'Напиток' },
+]);
