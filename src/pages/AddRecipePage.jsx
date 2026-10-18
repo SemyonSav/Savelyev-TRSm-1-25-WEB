@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import { recipeService } from '@/api/RecipeService.js';
 import RecipeForm from '@/components/forms/RecipeForm.jsx';
@@ -7,10 +7,24 @@ import { useRecipeForm } from '@/hooks/useRecipeForm.js';
 import { toRecipePayload } from '@/utils/recipeForm.js';
 
 export default function AddRecipePage() {
-  const { values, setField, reset } = useRecipeForm();
+  const { values, errors, setField, validate, reset } = useRecipeForm();
+  const formRef = useRef(null);
+  const [focusRequest, setFocusRequest] = useState(0);
   const [status, setStatus] = useState({ state: 'idle', recipe: null, error: null });
 
+  // После отрисовки ошибок переводим фокус на первое некорректное поле
+  useEffect(() => {
+    if (focusRequest > 0) {
+      formRef.current?.querySelector('.is-invalid')?.focus();
+    }
+  }, [focusRequest]);
+
   const handleSubmit = async () => {
+    if (!validate()) {
+      setFocusRequest((value) => value + 1);
+      return;
+    }
+
     setStatus({ state: 'submitting', recipe: null, error: null });
 
     try {
@@ -40,7 +54,9 @@ export default function AddRecipePage() {
       )}
 
       <RecipeForm
+        ref={formRef}
         values={values}
+        errors={errors}
         onFieldChange={setField}
         onSubmit={handleSubmit}
         onReset={reset}

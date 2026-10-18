@@ -12,9 +12,11 @@ import ListField from './ListField.jsx';
  *   onSubmit: () => void,
  *   onReset: () => void,
  *   isSubmitting?: boolean,
+ *   ref?: import('react').Ref<HTMLFormElement>,
  * }} props
  */
 export default function RecipeForm({
+  ref,
   values,
   errors = {},
   onFieldChange,
@@ -35,7 +37,7 @@ export default function RecipeForm({
   };
 
   return (
-    <Form noValidate onSubmit={handleSubmit} className="recipe-form">
+    <Form ref={ref} noValidate onSubmit={handleSubmit} className="recipe-form">
       <fieldset disabled={isSubmitting} className="d-grid gap-4">
         <Card body>
           <h2 className="h6 mb-3">Основное</h2>
