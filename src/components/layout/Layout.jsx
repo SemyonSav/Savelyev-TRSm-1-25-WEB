@@ -9,8 +9,11 @@ export default function Layout() {
 
   return (
     <div className="app-layout">
+      <a href="#main" className="visually-hidden-focusable">
+        Перейти к содержимому
+      </a>
       <Header />
-      <main className="app-main">
+      <main id="main" className="app-main" tabIndex={-1}>
         <Container className="py-4">
           {/* key сбрасывает состояние ошибки при переходе на другую страницу */}
           <ErrorBoundary key={pathname}>

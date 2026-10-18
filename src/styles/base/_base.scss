@@ -16,3 +16,16 @@ img {
   outline: 2px solid var(--bs-primary);
   outline-offset: 2px;
 }
+
+.app-main:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

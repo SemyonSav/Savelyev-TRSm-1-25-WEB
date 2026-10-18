@@ -11,11 +11,12 @@ import { SORT_FIELDS, SORT_ORDERS } from '@/config/constants.js';
 export default function SortSelect({ sort, order, onChange }) {
   return (
     <InputGroup size="sm">
-      <InputGroup.Text as="label" htmlFor="sort-field">
+      <InputGroup.Text as="label" htmlFor="sort-field" className="d-none d-sm-flex">
         Сортировка
       </InputGroup.Text>
       <Form.Select
         id="sort-field"
+        aria-label="Поле сортировки"
         value={sort}
         onChange={(event) => onChange({ sort: event.target.value })}
       >

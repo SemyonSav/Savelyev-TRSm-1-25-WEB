@@ -15,8 +15,8 @@ export const SORT_FIELDS = Object.freeze([
 ]);
 
 export const SORT_ORDERS = Object.freeze([
-  { value: 'asc', label: 'По возрастанию' },
-  { value: 'desc', label: 'По убыванию' },
+  { value: 'asc', label: '↑ По возрастанию' },
+  { value: 'desc', label: '↓ По убыванию' },
 ]);
 
 /** Параметры списка при первой загрузке страницы. */
