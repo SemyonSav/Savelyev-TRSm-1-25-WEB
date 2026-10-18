@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import { recipeService } from '@/api/RecipeService.js';
+import CreatedRecipeModal from '@/components/forms/CreatedRecipeModal.jsx';
 import RecipeForm from '@/components/forms/RecipeForm.jsx';
 import { APP_NAME } from '@/config/constants.js';
 import { useRecipeForm } from '@/hooks/useRecipeForm.js';
@@ -33,8 +34,11 @@ export default function AddRecipePage() {
       reset();
     } catch (error) {
       setStatus({ state: 'error', recipe: null, error });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  const closeResult = () => setStatus({ state: 'idle', recipe: null, error: null });
 
   return (
     <>
@@ -44,13 +48,13 @@ export default function AddRecipePage() {
         Поля, отмеченные <span className="text-danger">*</span>, обязательны для заполнения.
       </p>
 
-      {status.state === 'success' && (
-        <Alert variant="success">
-          Рецепт «{status.recipe.name}» создан, id {status.recipe.id}.
-        </Alert>
-      )}
       {status.state === 'error' && (
-        <Alert variant="danger">Не удалось сохранить рецепт: {status.error.message}</Alert>
+        <Alert variant="danger" dismissible onClose={closeResult}>
+          <p className="fw-semibold mb-1">Не удалось сохранить рецепт</p>
+          <p className="mb-0 small">
+            {status.error.message}. Данные формы сохранены, попробуйте ещё раз.
+          </p>
+        </Alert>
       )}
 
       <RecipeForm
@@ -61,6 +65,11 @@ export default function AddRecipePage() {
         onSubmit={handleSubmit}
         onReset={reset}
         isSubmitting={status.state === 'submitting'}
+      />
+
+      <CreatedRecipeModal
+        recipe={status.state === 'success' ? status.recipe : null}
+        onHide={closeResult}
       />
     </>
   );
